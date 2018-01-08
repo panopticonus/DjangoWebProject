@@ -1,0 +1,134 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+    #img-upload{
+        width: 100%;
+    }
+</style>
+
+{% block scripts %}
+<script>
+    $(document).ready( function() {
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+		    
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+		    
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+	    
+		});
+
+        function readUrl(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+		        
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+		        
+				reader.readAsDataURL(input.files[0]);
+
+                $('#startConvert').removeClass('disabled');
+            }
+        }
+
+        $("#imgInp").change(function(){
+            readUrl(this);
+		}); 	
+
+		//$('#startConvert').click(function () {
+		//	var image = $('#form').serialize();
+
+		//	var formData = new FormData();
+  //          formData.append("img-upload", image);
+  //          debugger;
+		//    var xhr = new XMLHttpRequest();
+		//    xhr.open('POST', '/ajax/imageConvert/', true);
+		//    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		//    xhr.onload = function () {
+		//        if (xhr.status === 200) {
+		//            // File(s) uploaded.
+		//        } else {
+		//            alert('An error occurred!');
+		//        }
+		//	};
+
+		//    xhr.send(formData);
+
+            //$.ajax({
+            //    url: '/ajax/imageConvert/',
+            //    dataType: 'json',
+            //    type: 'POST',
+            //    data: { image : image },
+            //    cache: false,
+            //    processData: false,
+            //    contentType: false,
+            //    success: function (data) {
+            //        //if () {
+            //        //    alert("A user with this username already exists.");
+            //        //}
+            //    }
+            //});
+        //});
+    });
+</script>
+{% endblock %}
+
+<div class="container">
+    <div class="col-md-6">
+        <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+        <div class="form-group">
+            <label>Upload Image</label>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Browse… <input type="file" name="imgInp" id="imgInp">
+                    </span>
+                </span>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <img id="img-upload" alt=""/>
+            <button type="submit" class="btn btn-primary disabled">Konwertuj</button>
+        </div>             
+        </form>
+    </div>
+	
+    {#<button id="startConvert" type="submit" class="btn btn-primary disabled">Konwertuj</button>#}
+</div>
+{% endblock %}
