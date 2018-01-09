@@ -1,4 +1,4 @@
-"""
+﻿"""
 Definition of views.
 """
 
@@ -21,7 +21,6 @@ def home(request):
 
 def imageTypeConverter(request):
     if request.method == 'POST':
-        item = request.FILES.get('imgInp')
         return HttpResponseRedirect('imageTypeConverter')
     else:
         assert isinstance(request, HttpRequest)
