@@ -63,49 +63,13 @@
 		        
 				reader.readAsDataURL(input.files[0]);
 
-                $('#startConvert').removeClass('disabled');
+                $('#startConvert').attr('disabled', false);
             }
         }
 
         $("#imgInp").change(function(){
             readUrl(this);
 		}); 	
-
-		//$('#startConvert').click(function () {
-		//	var image = $('#form').serialize();
-
-		//	var formData = new FormData();
-  //          formData.append("img-upload", image);
-  //          debugger;
-		//    var xhr = new XMLHttpRequest();
-		//    xhr.open('POST', '/ajax/imageConvert/', true);
-		//    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-		//    xhr.onload = function () {
-		//        if (xhr.status === 200) {
-		//            // File(s) uploaded.
-		//        } else {
-		//            alert('An error occurred!');
-		//        }
-		//	};
-
-		//    xhr.send(formData);
-
-            //$.ajax({
-            //    url: '/ajax/imageConvert/',
-            //    dataType: 'json',
-            //    type: 'POST',
-            //    data: { image : image },
-            //    cache: false,
-            //    processData: false,
-            //    contentType: false,
-            //    success: function (data) {
-            //        //if () {
-            //        //    alert("A user with this username already exists.");
-            //        //}
-            //    }
-            //});
-        //});
     });
 </script>
 {% endblock %}
@@ -123,12 +87,27 @@
                 </span>
                 <input type="text" class="form-control" readonly>
             </div>
+            
             <img id="img-upload" alt=""/>
-            <button type="submit" class="btn btn-primary disabled">Konwertuj</button>
         </div>             
+
+            <div class="form-group">
+                <label for="fileFormat">Wybierz format pliku:</label>
+                <select class="form-control" name="fileFormat" id="fileFormat">
+                    <option value="jpg">JPG</option>
+                    <option value="tiff">TIFF</option>
+                    <option value="bmp">BMP</option>
+                    <option value="png">PNG</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fname">Nazwa pliku: </label>
+                <input type="text" class="form-control" name="fname" id="fname">
+            </div>
+
+            <button id="startConvert" type="submit" class="btn btn-primary" disabled>Konwertuj</button>
         </form>
-    </div>
-	
-    {#<button id="startConvert" type="submit" class="btn btn-primary disabled">Konwertuj</button>#}
+    </div>	
 </div>
 {% endblock %}
