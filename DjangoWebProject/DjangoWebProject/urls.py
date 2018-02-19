@@ -18,8 +18,10 @@ urlpatterns = [
     # Examples:
     url(r'^$', app.views.home, name='home'),
 	url(r'^imageTypeConverter$', app.views.imageTypeConverter, name='imageTypeConverter'),
+    url(r'^imageSizeConverter$', app.views.imageSizeConverter, name='imageSizeConverter'),
+    url(r'^imageAddFilter$', app.views.imageAddFilter, name='imageAddFilter')
 
-    # Uncomment the admin/doc line below to enable admin documentation:
+        # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:

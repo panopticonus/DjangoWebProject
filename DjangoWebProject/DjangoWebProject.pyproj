@@ -49,6 +49,7 @@
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
     <Folder Include="app\static\app\fonts\" />
+    <Folder Include="app\static\app\images\" />
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
@@ -56,6 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\static\app\content\3-col-portfolio.css" />
+    <Content Include="app\static\app\images\1.jpg" />
+    <Content Include="app\static\app\images\2.jpg" />
+    <Content Include="app\static\app\images\3.jpg" />
+    <Content Include="app\static\app\images\4.jpg" />
+    <Content Include="app\static\app\images\5.jpg" />
+    <Content Include="app\static\app\images\6.jpg" />
+    <Content Include="app\templates\app\imageAddFilter.html" />
+    <Content Include="app\templates\app\imageSizeConverter.html" />
     <Content Include="app\templates\app\imageTypeConverter.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
@@ -80,12 +89,8 @@
     <Content Include="app\static\app\scripts\respond.js" />
     <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
-    <Content Include="app\templates\app\about.html" />
-    <Content Include="app\templates\app\contact.html" />
     <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\layout.html" />
-    <Content Include="app\templates\app\login.html" />
-    <Content Include="app\templates\app\loginpartial.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">

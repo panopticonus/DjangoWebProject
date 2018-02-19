@@ -1,0 +1,122 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+    #img-upload{
+        width: 100%;
+    }
+</style>
+
+{% block scripts %}
+
+<script>
+    $(document).ready( function() {
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+		    
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+		    
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+	    
+        });
+
+        function readUrl(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+		        
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+		        
+                reader.readAsDataURL(input.files[0]);
+
+                $('#start').attr('disabled', false);
+            }
+        }
+
+        $("#imgInp").change(function(){
+            readUrl(this);
+        }); 	
+    });
+</script>
+
+{% endblock %}
+
+<div class="container">
+    <div class="col-md-6">
+        <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+            <div class="form-group">
+                <label>Wczytaj plik:</label>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                            Wybierz… <input type="file" name="imgInp" id="imgInp">
+                        </span>
+                    </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+            
+                <img id="img-upload" alt=""/>
+            </div>             
+        
+            <div class="form-group">
+                <label for="filter">Wybierz filtr: </label>
+                <select class="form-control" name="filter" id="filter">
+                    <option value="BLUR">Rozmycie obrazu</option>
+                    <option value="CONTOUR">Filtr gradientowy</option>
+                    <option value="DETAIL">Wyostrzenie</option>
+                    <option value="SHARPEN">Wyostrzenie 2</option>
+                    <option value="EDGE_ENHANCE">Poprawienie jakości krawędzi</option>
+                    <option value="EDGE_ENHANCE_MORE">Poprawienie jakości krawędzi 2</option>
+                    <option value="EMBOSS">Płaskorzeźba</option>
+                    <option value="FIND_EDGES">Znajdowanie krawędzi</option>
+                    <option value="SMOOTH">Filtr wygładzający</option>
+                    <option value="SMOOTH_MORE">Filtr wygładzający 2</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fname">Nazwa pliku: </label>
+                <input type="text" class="form-control" name="fname" id="fname">
+            </div>
+
+            <button id="start" type="submit" class="btn btn-primary" disabled>Zapisz</button>
+        </form>
+    </div>	
+</div>
+{% endblock %}
