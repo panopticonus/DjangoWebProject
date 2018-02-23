@@ -66,6 +66,7 @@
     <Content Include="app\templates\app\imageAddFilter.html" />
     <Content Include="app\templates\app\imageSizeConverter.html" />
     <Content Include="app\templates\app\imageTypeConverter.html" />
+    <None Include="FolderProfile.pubxml" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.min.css" />

@@ -3,7 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render
-from _io import StringIO
+from io import BytesIO
 from django.http import HttpRequest
 from datetime import datetime
 from django.http import HttpResponseRedirect
@@ -12,6 +12,8 @@ import tkinter as tk
 from tkinter import filedialog
 import os
 from PIL import ImageFilter
+from django.http import HttpResponse
+import base64
 
 def home(request):
     """Renders the home page."""
@@ -78,7 +80,17 @@ def imageSizeConverter(request):
         nazwa = file_path + "/" + resultFileName + file_extension
         img.save(nazwa)
 
-        return HttpResponseRedirect('imageSizeConverter')
+        output = BytesIO()
+        img.save(output, format='JPEG')
+        im_data = output.getvalue()
+        data_url = 'data:image/jpg;base64,' + base64.b64encode(im_data).decode()
+
+        return render(request, "app/imageSizeConverter.html", 
+                      {
+                          'title':'Zmiana rozmiaru',
+                          'year':datetime.now().year,
+                          'image': data_url
+                      })       
     else:
         assert isinstance(request, HttpRequest)
         return render(request,
