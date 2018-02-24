@@ -89,7 +89,13 @@
             </div>
             
             <img id="img-upload" alt=""/>
-        </div>             
+        </div>            
+        
+            <div class="form-group">
+                <label style="display: inherit;" for="resultImage">{{ labelText }}</label>
+                <img id="resultImage" src="{{ image }}" alt=""/>
+                <a style="font-size: x-large; display: inherit;" href="{{ image }}" download="{{ fileName }}">{{ aText }}</a>
+            </div>
 
             <div class="form-group">
                 <label for="fileFormat">Wybierz format pliku:</label>

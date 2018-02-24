@@ -8,8 +8,6 @@ from django.http import HttpRequest
 from datetime import datetime
 from django.http import HttpResponseRedirect
 from PIL import Image
-import tkinter as tk
-from tkinter import filedialog
 import os
 from PIL import ImageFilter
 from django.http import HttpResponse
@@ -29,19 +27,25 @@ def home(request):
 def imageTypeConverter(request):
     if request.method == 'POST':
         item = request.FILES.get('imgInp')
-        form= request.POST.get('fileFormat')
-                
-        root = tk.Tk()
-        root.withdraw()
-        file_path = filedialog.askdirectory()
+        format = request.POST.get('fileFormat')               
         name = request.POST.get('fname')
 
-        print(file_path)
         img = Image.open(item)
-        nazwa=file_path+"/"+name+"."+form
-        img.save(nazwa)
 
-        return HttpResponseRedirect('imageTypeConverter')
+        output = BytesIO()
+        img.save(output, format='JPEG')
+        im_data = output.getvalue()
+        data_url = 'data:image/jpg;base64,' + base64.b64encode(im_data).decode()
+
+        return render(request, "app/imageSizeConverter.html", 
+                      {
+                          'title':'Zmiana rozmiaru',
+                          'year':datetime.now().year,
+                          'image': data_url,
+                          'fileName' : name + '.' + format,
+                          'aText' : 'Pobierz plik wynikowy',
+                          'labelText' : 'Obraz wynikowy: '
+                      })       
     else:
         assert isinstance(request, HttpRequest)
         return render(request,
@@ -58,14 +62,10 @@ def imageSizeConverter(request):
         width = int(request.POST.get('width'))
         height = int(request.POST.get('height'))
 
-        proportion = request.POST.get('proportion')
-                
-        root = tk.Tk()
-        root.withdraw()
-        file_path = filedialog.askdirectory()
+        proportion = request.POST.get('proportion')          
+
         name = request.POST.get('fname')
 
-        print(file_path)
         img = Image.open(item)
 
         if(proportion == 'on'):
@@ -77,8 +77,6 @@ def imageSizeConverter(request):
 
         if not file_extension:
             filename, file_extension = os.path.splitext(item.name)
-        nazwa = file_path + "/" + resultFileName + file_extension
-        img.save(nazwa)
 
         output = BytesIO()
         img.save(output, format='JPEG')
@@ -89,7 +87,10 @@ def imageSizeConverter(request):
                       {
                           'title':'Zmiana rozmiaru',
                           'year':datetime.now().year,
-                          'image': data_url
+                          'image': data_url,
+                          'fileName' : resultFileName + file_extension,
+                          'aText' : 'Pobierz plik wynikowy',
+                          'labelText' : 'Obraz wynikowy: '
                       })       
     else:
         assert isinstance(request, HttpRequest)
@@ -103,13 +104,9 @@ def imageSizeConverter(request):
 def imageAddFilter(request):
     if request.method == 'POST':
         item = request.FILES.get('imgInp')
-                
-        root = tk.Tk()
-        root.withdraw()
-        file_path = filedialog.askdirectory()
+               
         name = request.POST.get('fname')
 
-        print(file_path)
         img = Image.open(item)
 
         filterForm = request.POST.get('filter')
@@ -134,10 +131,21 @@ def imageAddFilter(request):
 
         if not file_extension:
             filename, file_extension = os.path.splitext(item.name)
-        nazwa = file_path + "/" + resultFileName + file_extension
-        img.save(nazwa)
 
-        return HttpResponseRedirect('imageAddFilter')
+        output = BytesIO()
+        img.save(output, format='JPEG')
+        im_data = output.getvalue()
+        data_url = 'data:image/jpg;base64,' + base64.b64encode(im_data).decode()
+
+        return render(request, "app/imageAddFilter.html", 
+                      {
+                          'title':'Nakładanie filtrów',
+                          'year':datetime.now().year,
+                          'image': data_url,
+                          'fileName' : resultFileName + file_extension,
+                          'aText' : 'Pobierz plik wynikowy',
+                          'labelText' : 'Obraz wynikowy: '
+                      })
     else:
         assert isinstance(request, HttpRequest)
         return render(request,
