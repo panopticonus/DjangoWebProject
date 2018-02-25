@@ -19,7 +19,9 @@ urlpatterns = [
     url(r'^$', app.views.home, name='home'),
 	url(r'^imageTypeConverter$', app.views.imageTypeConverter, name='imageTypeConverter'),
     url(r'^imageSizeConverter$', app.views.imageSizeConverter, name='imageSizeConverter'),
-    url(r'^imageAddFilter$', app.views.imageAddFilter, name='imageAddFilter')
+    url(r'^imageAddFilter$', app.views.imageAddFilter, name='imageAddFilter'),
+    url(r'^imageGrayscale$', app.views.imageGrayscale, name='imageGrayscale'),
+    url(r'^imageRotate$', app.views.imageRotate, name='imageRotate')
 
         # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

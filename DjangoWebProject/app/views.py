@@ -12,6 +12,7 @@ import os
 from PIL import ImageFilter
 from django.http import HttpResponse
 import base64
+from PIL import ImageOps
 
 def home(request):
     """Renders the home page."""
@@ -133,7 +134,7 @@ def imageAddFilter(request):
             filename, file_extension = os.path.splitext(item.name)
 
         output = BytesIO()
-        img.save(output, format='JPEG')
+        zmienna.save(output, format='JPEG')
         im_data = output.getvalue()
         data_url = 'data:image/jpg;base64,' + base64.b64encode(im_data).decode()
 
@@ -153,4 +154,80 @@ def imageAddFilter(request):
 		    {
 			    'title':'Nakładanie filtrów',
                 'year':datetime.now().year,
+		    })
+
+def imageGrayscale(request):
+    if request.method == 'POST':
+        item = request.FILES.get('imgInp')
+               
+        name = request.POST.get('fname')
+
+        img = Image.open(item)
+        img = ImageOps.grayscale(img)
+
+
+        resultFileName, file_extension = os.path.splitext(name)
+
+        if not file_extension:
+            filename, file_extension = os.path.splitext(item.name)
+
+        output = BytesIO()
+        img.save(output, format='JPEG')
+        im_data = output.getvalue()
+        data_url = 'data:image/jpg;base64,' + base64.b64encode(im_data).decode()
+
+        return render(request, "app/imageGrayscale.html", 
+                      {
+                          'title':'Skala szarości',
+                          'year':datetime.now().year,
+                          'image': data_url,
+                          'fileName' : resultFileName + file_extension,
+                          'aText' : 'Pobierz plik wynikowy',
+                          'labelText' : 'Obraz wynikowy: '
+                      })
+    else:
+        assert isinstance(request, HttpRequest)
+        return render(request,
+		    'app/imageGrayscale.html',
+		    {
+			    'title':'Skala szarości',
+                'year':datetime.now().year
+		    })
+
+def imageRotate(request):
+    if request.method == 'POST':
+        item = request.FILES.get('imgInp')
+               
+        name = request.POST.get('fname')
+        degrees = int(request.POST.get('degrees'))
+        
+        img = Image.open(item)
+        img = img.rotate(degrees)
+        
+        resultFileName, file_extension = os.path.splitext(name)
+
+        if not file_extension:
+            filename, file_extension = os.path.splitext(item.name)
+
+        output = BytesIO()
+        img.save(output, format='JPEG')
+        im_data = output.getvalue()
+        data_url = 'data:image/jpg;base64,' + base64.b64encode(im_data).decode()
+
+        return render(request, "app/imageRotate.html", 
+                      {
+                          'title':'Obracanie obrazu',
+                          'year':datetime.now().year,
+                          'image': data_url,
+                          'fileName' : resultFileName + file_extension,
+                          'aText' : 'Pobierz plik wynikowy',
+                          'labelText' : 'Obraz wynikowy: '
+                      })
+    else:
+        assert isinstance(request, HttpRequest)
+        return render(request,
+		    'app/imageRotate.html',
+		    {
+			    'title':'Obracanie obrazu',
+                'year':datetime.now().year
 		    })

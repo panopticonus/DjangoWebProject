@@ -46,23 +46,23 @@
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="../../static/app/images/4.jpg" alt=""></a>
+                <a href="{% url 'imageGrayscale' %}"><img class="card-img-top" src="../../static/app/images/4.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="#">Project Four</a>
+                        <a href="{% url 'imageGrayscale' %}">Skala szarosci</a>
                     </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                    <p class="card-text">Tryb, w ktorym kazdy z pikseli obrazu wejsciowego moze przybrac jeden z 256 odcieni szarosci.</p>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="../../static/app/images/5.jpg" alt=""></a>
+                <a href="{% url 'imageRotate' %}"><img class="card-img-top" src="../../static/app/images/5.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="#">Project Five</a>
+                        <a href="{% url 'imageRotate' %}">Obracanie obrazu</a>
                     </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                    <p class="card-text">Tryb, w ktorym obraz wejsciowy moze zostac obrocony o zadana ilosc stopni.</p>
                 </div>
             </div>
         </div>
