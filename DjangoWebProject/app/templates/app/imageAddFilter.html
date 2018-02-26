@@ -30,6 +30,11 @@
     #img-upload{
         width: 100%;
     }
+    .breadcrumb>li+li:before {
+        padding: 0 5px;
+        color: #ccc;
+        content: "/\00a0";
+    }
 </style>
 
 {% block scripts %}
@@ -77,6 +82,10 @@
 
 {% endblock %}
 
+<ul class="breadcrumb">
+    <li><a href="{% url 'home' %}">Strona główna</a></li>
+    <li class="active">{{ title }}</li>
+</ul>
 <div class="container">
     <div class="col-md-6">
         <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}

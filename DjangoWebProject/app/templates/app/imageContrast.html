@@ -2,13 +2,11 @@
 
 {% block content %}
 
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
 <style>
-     .btn-file {
-         position: relative;
-         overflow: hidden;
-     }
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
     .btn-file input[type=file] {
         position: absolute;
         top: 0;
@@ -32,16 +30,14 @@
     #img-upload{
         width: 100%;
     }
-     .breadcrumb>li+li:before {
-         padding: 0 5px;
-         color: #ccc;
-         content: "/\00a0";
-     }
+    .breadcrumb>li+li:before {
+        padding: 0 5px;
+        color: #ccc;
+        content: "/\00a0";
+    }
 </style>
 
 {% block scripts %}
-
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script>
     $(document).ready( function() {
@@ -83,6 +79,7 @@
         }); 	
     });
 </script>
+
 {% endblock %}
 
 <ul class="breadcrumb">
@@ -104,7 +101,7 @@
                 </div>
             
                 <img id="img-upload" alt=""/>
-            </div>          
+            </div>  
         
             <div class="form-group">
                 <label style="display: inherit;" for="resultImage">{{ labelText }}</label>
@@ -113,20 +110,21 @@
             </div>
         
             <div class="form-group">
-                <label for="width">Szerokość: </label>
-                <input type="number" class="form-control" name="width" id="width">
-            </div>
-        
-            <div class="form-group">
-                <label for="height">Wysokość: </label>
-                <input type="number" class="form-control" name="height" id="height">
+                <label for="contrast">Wybierz wartość o jaką zostanie zwiększony kontrast:</label>
+                <select class="form-control" name="contrast" id="contrast">
+                    <option value="110">10%</option>
+                    <option value="120">20%</option>
+                    <option value="130">30%</option>
+                    <option value="140">40%</option>
+                    <option value="150">50%</option>
+                    <option value="160">60%</option>                   
+                    <option value="170">70%</option>
+                    <option value="180">80%</option>
+                    <option value="190">90%</option>
+                    <option value="200">100%</option>
+                </select>
             </div>
 
-            <div class="form-group">
-                <label for="proportion">Zachowaj proporcje:</label>
-                <input name="proportion" id="proportion" type="checkbox" checked data-toggle="toggle">
-            </div>
-            
             <div class="form-group">
                 <label for="fname">Nazwa pliku: </label>
                 <input type="text" class="form-control" name="fname" id="fname">

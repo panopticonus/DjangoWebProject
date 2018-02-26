@@ -13,6 +13,7 @@ from PIL import ImageFilter
 from django.http import HttpResponse
 import base64
 from PIL import ImageOps
+from PIL import ImageEnhance
 
 def home(request):
     """Renders the home page."""
@@ -40,7 +41,7 @@ def imageTypeConverter(request):
 
         return render(request, "app/imageSizeConverter.html", 
                       {
-                          'title':'Zmiana rozmiaru',
+                          'title':'Konwerter plików graficznych',
                           'year':datetime.now().year,
                           'image': data_url,
                           'fileName' : name + '.' + format,
@@ -165,7 +166,6 @@ def imageGrayscale(request):
         img = Image.open(item)
         img = ImageOps.grayscale(img)
 
-
         resultFileName, file_extension = os.path.splitext(name)
 
         if not file_extension:
@@ -229,5 +229,44 @@ def imageRotate(request):
 		    'app/imageRotate.html',
 		    {
 			    'title':'Obracanie obrazu',
+                'year':datetime.now().year
+		    })
+
+def imageContrast(request):
+    if request.method == 'POST':
+        item = request.FILES.get('imgInp')
+        contrast = int(request.POST.get('contrast')) / 100          
+        name = request.POST.get('fname')
+
+        img = Image.open(item)
+
+        enh = ImageEnhance.Contrast(img)
+        result = enh.enhance(contrast)
+
+        resultFileName, file_extension = os.path.splitext(name)
+
+        if not file_extension:
+            filename, file_extension = os.path.splitext(item.name)
+
+        output = BytesIO()
+        result.save(output, format='JPEG')
+        im_data = output.getvalue()
+        data_url = 'data:image/jpg;base64,' + base64.b64encode(im_data).decode()
+
+        return render(request, "app/imageContrast.html", 
+                      {
+                          'title':'Zmiana kontrastu',
+                          'year':datetime.now().year,
+                          'image': data_url,
+                          'fileName' : resultFileName + file_extension,
+                          'aText' : 'Pobierz plik wynikowy',
+                          'labelText' : 'Obraz wynikowy: '
+                      })       
+    else:
+        assert isinstance(request, HttpRequest)
+        return render(request,
+		    'app/imageContrast.html',
+		    {
+			    'title':'Zmiana kontrastu',
                 'year':datetime.now().year
 		    })

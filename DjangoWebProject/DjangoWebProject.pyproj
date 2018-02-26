@@ -64,6 +64,7 @@
     <Content Include="app\static\app\images\5.jpg" />
     <Content Include="app\static\app\images\6.jpg" />
     <Content Include="app\templates\app\imageAddFilter.html" />
+    <Content Include="app\templates\app\imageContrast.html" />
     <Content Include="app\templates\app\imageGrayscale.html" />
     <Content Include="app\templates\app\imageRotate.html" />
     <Content Include="app\templates\app\imageSizeConverter.html" />

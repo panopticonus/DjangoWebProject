@@ -2,6 +2,9 @@
 
 {% block content %}
 
+<ul class="breadcrumb">
+    <li class="active">Strona glowna</li>
+</ul>
 <!-- Page Content -->
 <div class="container">
 
@@ -68,12 +71,12 @@
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="../../static/app/images/6.jpg" alt=""></a>
+                <a href="{% url 'imageContrast' %}"><img class="card-img-top" src="../../static/app/images/6.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="#">Project Six</a>
+                        <a href="{% url 'imageContrast' %}">Ustawienia kontrastu</a>
                     </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
+                    <p class="card-text">Tryb, w ktorym mozliwa jest zmiana wartosci kontrastu obrazu wejsciowego.</p>
                 </div>
             </div>
         </div>
